@@ -42,14 +42,35 @@ def main():
         canvas.add_line(line.start,line.end, color="black", width=2, style="solid")
     
 
-    print("Canvas after drawing:")
-    print(canvas)
-    print("Pen position:", pen.get_position())
-    app = App(root,canvas, start_position=(500, 400))
-    app.run()
-    
+    app = App(root, canvas, start_position=(500, 400))
+
+    # Fixed input (square path)
+    app.pen.penup()
+    app.pen.move_to(450, 450)   # move square to top-left
+    app.pen.pendown()
+    fixed_commands = "F+F+F+F"
+    print(f"Running fixed commands: {fixed_commands}")
+    app.run(fixed_commands)
+
+    # Fixed input (zigzag path)
+    app.pen.penup()
+    app.pen.move_to(400, 400)   # move zigzag to center-right
+    app.pen.pendown()
+    zigzag_commands = "F-F+F-F"
+    print(f"Running zigzag commands: {zigzag_commands}")
+    app.run(zigzag_commands)
+
+    # User input (command string)
+    user_commands = input("Enter drawing commands (e.g., F+F-F+F): ")
+    if user_commands.strip():
+        app.pen.penup()
+        app.pen.move_to(250, 450)   # place user drawing lower center
+        app.pen.pendown()
+        print(f"Running user commands: {user_commands}")
+        app.run(user_commands)    
+
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
-    

@@ -1,27 +1,23 @@
-from Drawing.turtle import Turtle
-from Drawing.commands import SquareCommand, ZigzagCommand
-from Geometry.point import Point
-from Drawing.canvas import Canvas
+from Drawing.pen import Pen
+
 class App:
-    def __init__(self, root,canvas, start_position=(100, 100)):
-         self.canvas = canvas
-         self.turtle = Turtle(Point(*start_position), 0)
-         self.turtle.set_canvas(self.canvas)
-         self.commands = [SquareCommand(), ZigzagCommand()]
-         self.root = root
+    def __init__(self, root, canvas, start_position=(0, 0)):
+        self.root = root
+        self.canvas = canvas
+        self.start_position = start_position
+        self.pen = Pen(canvas, position=start_position)
 
-    def run(self):
-        print("Available drawing commands:")
-        for i, cmd in enumerate(self.commands):
-            print(f"{i + 1}. {cmd.name()}")
-
-        while True:
-            try:
-                choice = int(input("Choose a command (1 or 2): "))
-                if 1 <= choice <= len(self.commands):
-                    self.commands[choice - 1].execute(self.turtle)
-                    break
-                else:
-                    print("Invalid choice, try again.")
-            except ValueError:
-                print("Please enter a number.")
+    def run(self, commands: str):
+        """Execute a sequence of drawing commands."""
+        print(f"Executing commands: {commands}")
+        for cmd in commands:
+            if cmd == "F":        # Move forward
+                self.pen.forward(50)
+            elif cmd == "+":      # Turn left
+                self.pen.turn_left(90)
+            elif cmd == "-":      # Turn right
+                self.pen.turn_right(90)
+            elif cmd == "B":      # Move backward
+                self.pen.forward(-50)
+            else:
+                print(f"Unknown command: {cmd}")
