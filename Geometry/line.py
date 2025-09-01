@@ -3,7 +3,7 @@ class Line:
     def __init__(self , start=Point, end=Point):
         self.start = start
         self.end = end
-    #this does not stre the value of start and end as protected attributes
+    #this does not store the value of start and end as protected attributes
     #we are not using a underscore here because python routes it to the property methods then we validate the input
     #and set the values in the setter methods which are protected
     @property

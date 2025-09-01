@@ -1,21 +1,20 @@
 from Geometry.point import Point
 from Shapes.shapes import Shape
+from Drawing.pen import Pen
 class Polygon(Shape):
-    def __init__(self, Points, color="black", line_width=1,outline="black"):
-        super().__init__(color=color, width=line_width)
-        self.points = Points
-        self.outline = outline
+    def __init__(self, point:Point, base: float, height: float, outline="black",width=1):
+        super().__init__(outline=outline,width=width)
+        self.point = point
+        self.base = base
+        self.height = height
     
-    def draw(self, pen):
-        if not self.points:
-            return
-        #pen.move_to(self.points[0].x, self.points[0].y)
-        #for point in self.points[1:]:
-         #  pen.line_to(point.x, point.y)
-        #pen.line_to(self.points[0].x, self.points[0].y)
-        #drawing the polygon using built-in canvas method
-        pen._canvas.draw_polygon(self.points, outline=self.outline, fill=self._color, width=self._width)
-    def __str__(self):
-        return f"Polygon(points={self.points}, color={self._color}, line_width={self._width})"
-    def __repr__(self):
-        return str(self)
+    def draw(self, pen: Pen):
+     x = self.point.x
+     y = self.point.y
+     base = self.base
+     height = self.height
+
+     pen.move_to(x, y)
+     pen.line_to(x+base, y)
+     pen.line_to(x+base/2, y-height)
+     pen.line_to(x, y)

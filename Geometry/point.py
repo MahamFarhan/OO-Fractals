@@ -35,6 +35,7 @@ class Point:
 
     def __eq__(self, other):
         return isinstance(other, Point) and self._x == other._x and self._y == other._y
+    #compares two points
 
     def distance(self, p):
         #Distance between this point and another.
@@ -42,6 +43,8 @@ class Point:
     def as_tuple(self):
         #Return coordinates as a tuple.
         return (self._x, self._y)
+    #Tuples are immutable, so returned coordinates can’t accidentally be changed.
+    #easy to use in functions that use (x,y) pairs
 
     def __str__(self):
         return f"({self._x}, {self._y})"
@@ -52,3 +55,5 @@ class Point:
     @classmethod
     def get_instance_count(cls):
         return cls.count
+    #cls.count refers to the class variable count, which tracks how many Point objects have been created.
+    #You can call it without creating an instance:
